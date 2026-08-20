@@ -11,9 +11,7 @@ class StudentMiddleware
 
         // Check if student has access
         if (!isset($_SESSION['student_access']) || $_SESSION['student_access'] !== true) {
-
-            // Unauthorized access
-            header('Location: ' . site_url('student'));
+            header('Location: ' . site_url('student') . '?access=denied');
             exit;
         }
 

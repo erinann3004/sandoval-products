@@ -9,9 +9,17 @@ class StudentController extends Controller
         session_start();
     }
 
-        $_SESSION['student_access'] = true;
+        $accessDenied = (($_GET['access'] ?? '') === 'denied');
+
+        if ($accessDenied) {
+            $_SESSION['student_access'] = true;
+        }
+
         $data = [
-            'title' => 'My Student Hub'
+            'title' => 'My Student Hub',
+            'access_message' => $accessDenied
+                ? 'Student Profile is protected. Please click Student Profile again to continue.'
+                : null
         ];
 
         $this->call->view('home', $data);

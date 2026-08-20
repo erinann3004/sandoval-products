@@ -53,6 +53,15 @@
             margin-bottom: 10px;
         }
 
+        .access-message {
+            margin-bottom: 25px;
+            padding: 14px 18px;
+            color: #6b3867;
+            background: #fff0f7;
+            border-left: 4px solid #9b4d96;
+            border-radius: 8px;
+        }
+
         nav a {
             display: inline-block;
             text-decoration: none;
@@ -79,6 +88,10 @@
     <p>
         This is my LavaLust Student Information Page.
     </p>
+
+    <?php if (!empty($access_message)): ?>
+        <p class="access-message"><?= htmlspecialchars($access_message, ENT_QUOTES, 'UTF-8') ?></p>
+    <?php endif; ?>
 
     <div class="info">
         <h2>Student Information</h2>
