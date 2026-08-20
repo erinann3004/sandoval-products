@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Replace with your profile photo">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe6f0"/><stop offset="1" stop-color="#e8d9ff"/></linearGradient></defs>
+  <rect width="400" height="400" fill="url(#g)"/><circle cx="200" cy="142" r="66" fill="#9b4d96" opacity=".7"/><path d="M78 363c17-86 70-128 122-128s105 42 122 128" fill="#9b4d96" opacity=".7"/><text x="200" y="382" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#fff">YOUR PHOTO</text>
+</svg>
