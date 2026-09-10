@@ -17,5 +17,5 @@ $router->group(['middleware' => 'auth'], function ($router) {
 	$router->post('/products/create', 'ProductsController::store');
 	$router->get('/products/edit/{id}', 'ProductsController::edit')->where_number('id');
 	$router->post('/products/edit/{id}', 'ProductsController::update')->where_number('id');
-	$router->post('/products/delete/{id}', 'ProductsController::delete')->where_number('id');
+    $router->post('/products/delete/{id}', 'ProductsController::delete/$1')->where_number('id');
 });
