@@ -1,175 +1,238 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8'); ?></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8'); ?> | LavaLust</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+* { box-sizing: border-box; }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-        }
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 34px 18px;
+    color: #19323c;
+    font-family: Arial, sans-serif;
+    background: #e8f1ef;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-        }
+main {
+    max-width: 1080px;
+    margin: auto;
+}
 
-        h1 {
-            margin-bottom: 20px;
-        }
+header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+h1 {
+    margin: 0;
+    font: 2.6rem Georgia, serif;
+}
 
-        .btn {
-            display: inline-block;
-            padding: 10px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            color: white;
-            background: #0d9488;
-        }
+.eyebrow {
+    margin: 0 0 8px;
+    color: #28665c;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
 
-        .btn:hover {
-            background: #0f766e;
-        }
+a, button {
+    font-weight: 700;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
+.button {
+    display: inline-block;
+    padding: 11px 15px;
+    color: #fff;
+    background: #df674d;
+    text-decoration: none;
+}
 
-        th,
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #e2e8f0;
-            text-align: left;
-        }
+.logout {
+    color: #28665c;
+    margin-left: 14px;
+}
 
-        th {
-            background: #0d9488;
-            color: white;
-        }
+.message {
+    padding: 12px 15px;
+    margin-bottom: 18px;
+    color: #285e4f;
+    background: #d7eee5;
+}
 
-        tr:hover {
-            background: #f1f5f9;
-        }
+.table-wrap {
+    overflow-x: auto;
+    background: #fffdf8;
+    border: 1px solid #c9d9d4;
+}
 
-        .actions a {
-            margin-right: 8px;
-            text-decoration: none;
-        }
+table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+}
 
-        .edit {
-            color: #2563eb;
-        }
+th, td {
+    padding: 15px 16px;
+    text-align: left;
+    border-bottom: 1px solid #dfe9e5;
+}
 
-        .delete {
-            color: #dc2626;
-        }
-    </style>
+th {
+    color: #28665c;
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: #f5faf7;
+}
+
+.actions {
+    white-space: nowrap;
+}
+
+.actions a {
+    color: #28665c;
+    margin-right: 12px;
+}
+
+.actions button {
+    padding: 0;
+    color: #a0392e;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.empty {
+    padding: 40px;
+    text-align: center;
+    color: #617771;
+}
+
+@media (max-width: 600px) {
+    header {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
+<main>
 
-    <div class="top-bar">
-        <h1><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8'); ?></h1>
-
-        <a href="<?= site_url('products/create'); ?>" class="btn">
-            Add Product
-        </a>
+<header>
+    <div>
+        <p class="eyebrow">Authenticated catalogue</p>
+        <h1>Products</h1>
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Created At</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+    <div>
+        <a class="button" href="<?= site_url('products/create'); ?>">Add product</a>
 
-        <tbody>
+        <form method="post" action="<?= site_url('logout'); ?>" style="display:inline">
+            <?= csrf_field(); ?>
+            <button class="logout" type="submit">Sign out</button>
+        </form>
+    </div>
+</header>
 
-        <?php if (!empty($products)): ?>
+<?php if ($message): ?>
+    <div class="message">
+        <?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
+    </div>
+<?php endif; ?>
 
-            <?php foreach ($products as $product): ?>
+<div class="table-wrap">
 
-                <tr>
-                    <td>
-                        <?= htmlspecialchars($product['product_name'], ENT_QUOTES, 'UTF-8'); ?>
-                    </td>
+<table>
 
-                    <td>
-                        <?= htmlspecialchars($product['description'], ENT_QUOTES, 'UTF-8'); ?>
-                    </td>
+<thead>
+<tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Created</th>
+    <th>Actions</th>
+</tr>
+</thead>
 
-                    <td>
-                        ₱<?= number_format((float) $product['price'], 2); ?>
-                    </td>
+<tbody>
 
-                    <td>
-                        <?= (int) $product['quantity']; ?>
-                    </td>
+<?php if (empty($products)): ?>
 
-                    <td>
-                        <?= htmlspecialchars($product['created_at'], ENT_QUOTES, 'UTF-8'); ?>
-                    </td>
+<tr>
+    <td class="empty" colspan="6">No products yet. Add the first one.</td>
+</tr>
 
-                    <td class="actions">
-                        <a
-                            href="<?= site_url('products/edit/' . $product['id']); ?>"
-                            class="edit"
-                        >
-                            Edit
-                        </a>
+<?php else: foreach ($products as $product): ?>
 
-                        <a
-                            href="<?= site_url('products/delete/' . $product['id']); ?>"
-                            class="delete"
-                            onclick="return confirm('Are you sure you want to delete this product?');"
-                        >
-                            Delete
-                        </a>
-                    </td>
-                </tr>
+<tr>
 
-            <?php endforeach; ?>
+<td>
+    <?= htmlspecialchars($product['product_name'], ENT_QUOTES, 'UTF-8'); ?>
+</td>
 
-        <?php else: ?>
+<td>
+    <?= htmlspecialchars($product['description'], ENT_QUOTES, 'UTF-8'); ?>
+</td>
 
-            <tr>
-                <td colspan="6" style="text-align:center;">
-                    No products found.
-                </td>
-            </tr>
+<td>
+    ₱<?= number_format((float) $product['price'], 2); ?>
+</td>
 
-        <?php endif; ?>
+<td>
+    <?= (int) $product['quantity']; ?>
+</td>
 
-        </tbody>
-    </table>
+<td>
+    <?= htmlspecialchars($product['created_at'], ENT_QUOTES, 'UTF-8'); ?>
+</td>
+
+<td class="actions">
+
+<a href="<?= site_url('products/edit/' . (int) $product['id']); ?>">
+    Edit
+</a>
+
+<form method="post"
+      action="<?= site_url('products/delete/' . (int) $product['id']); ?>"
+      style="display:inline"
+      onsubmit="return confirm('Delete this product?');">
+
+    <?= csrf_field(); ?>
+
+    <button type="submit">Delete</button>
+
+</form>
+
+</td>
+
+</tr>
+
+<?php endforeach; endif; ?>
+
+</tbody>
+
+</table>
 
 </div>
+
+</main>
 
 </body>
 </html>
