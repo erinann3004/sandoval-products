@@ -19,20 +19,18 @@ $config['environment'] = getenv('APP_ENV') ?: 'development';
 | Base URL
 |--------------------------------------------------------------------------
 |
-| Render uses HTTPS, so production should always generate HTTPS URLs.
-| Local development will automatically use HTTP/HTTPS based on the server.
+| Detect HTTPS correctly when running behind a proxy such as Render.
 |
 */
 
-if (($config['environment'] ?? '') === 'production') {
+$forwardedProto = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '';
 
+if ($forwardedProto === 'https') {
     $requestScheme = 'https';
-
+} elseif (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+    $requestScheme = 'https';
 } else {
-
-    $requestScheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-        ? 'https'
-        : 'http';
+    $requestScheme = 'http';
 }
 
 $requestHost = $_SERVER['HTTP_HOST'] ?? 'localhost';
