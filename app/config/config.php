@@ -22,7 +22,7 @@ $config['sess_match_ip'] = false;
 |--------------------------------------------------------------------------
 | Base URL
 |--------------------------------------------------------------------------
-|
+| 
 | Detect HTTPS correctly when running behind a proxy such as Render.
 |
 */ 
@@ -133,3 +133,12 @@ $config['language'] = 'en-US';
 */ 
  
 $config['subclass_prefix'] = 'MY_';
+
+
+/*
+|--------------------------------------------------------------------------
+| Middleware Configuration
+|--------------------------------------------------------------------------
+*/
+
+require_once APP_DIR . 'config/middleware.php';
