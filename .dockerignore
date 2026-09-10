@@ -1,7 +1,8 @@
 .env
 .env.*
-*.pem
 *.crt
+*.pem
+!certs/ca.pem
 .git
 .gitignore
 runtime/session/*

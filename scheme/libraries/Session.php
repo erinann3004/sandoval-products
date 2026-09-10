@@ -137,7 +137,7 @@ class Session {
         $this->config = get_config();
 
         // Database session handler support
-        if ($this->config['sess_driver'] === 'database') {
+		if (($this->config['sess_driver'] ?? 'files') === 'database') {
             $handler = load_class('Database_session_handler', 'libraries/Session');
             session_set_save_handler($handler, true);
         }

@@ -65,7 +65,7 @@ $database['main'] = array(
     'password'  => getenv('DB_PASSWORD') ?: '', 
     'database'  => getenv('DB_NAME') ?: 'products', 
     'charset'   => 'utf8mb4', 
-    'ssl_ca'    => getenv('DB_SSL_CA') ?: '',
+    'ssl_ca'    => getenv('DB_SSL_CA') ?: (defined('ROOT_DIR') && file_exists(ROOT_DIR . 'certs/ca.pem') ? ROOT_DIR . 'certs/ca.pem' : ''),
     'dbprefix'  => '',  
     'path'      => ''  
 );
