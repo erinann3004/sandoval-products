@@ -1,131 +1,50 @@
-<?php
-defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
+<?php 
+defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed'); 
+ 
+/* 
+|-------------------------------------------------------------------------- 
+| Application Configuration 
+|-------------------------------------------------------------------------- 
+*/ 
+ 
+$config = array(); 
+ 
+$config['version'] = '4.6.0'; 
+ 
+$config['environment'] = getenv('APP_ENV') ?: 'development'; 
 
-/*
-|--------------------------------------------------------------------------
-| Application Configuration
-|--------------------------------------------------------------------------
-*/
-
-$config = array();
-
-$config['version'] = '4.6.0';
-
-$config['environment'] = getenv('APP_ENV') ?: 'development';
-
-
-/*
-|--------------------------------------------------------------------------
-| Base URL
-|--------------------------------------------------------------------------
-|
-| Detect HTTPS correctly when running behind a proxy such as Render.
-|
-*/
-
-$forwardedProto = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '';
-
-if ($forwardedProto === 'https') {
-    $requestScheme = 'https';
-} elseif (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
-    $requestScheme = 'https';
-} else {
-    $requestScheme = 'http';
-}
-
-$requestHost = $_SERVER['HTTP_HOST'] ?? 'localhost';
-
-$scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-
-$projectPath = preg_replace(
-    '#/(?:public/)?index\.php$#',
-    '',
-    $scriptName
-);
-
-$config['base_url'] = $requestScheme . '://' . $requestHost . rtrim($projectPath, '/');
-
-
-/*
-|--------------------------------------------------------------------------
-| Proxy
-|--------------------------------------------------------------------------
-*/
-
-$config['proxy_enabled'] = FALSE;
-
-
-/*
-|--------------------------------------------------------------------------
-| Index Page
-|--------------------------------------------------------------------------
-*/
-
-$config['index_page'] = 'index.php';
-
-
-/*
-|--------------------------------------------------------------------------
-| Logging
-|--------------------------------------------------------------------------
-*/
-
-$config['log_threshold'] = 0;
-
-$config['log_dir'] = 'runtime/logs/';
-
-
-/*
-|--------------------------------------------------------------------------
-| Composer Autoload
-|--------------------------------------------------------------------------
-*/
-
-$config['composer_autoload'] = FALSE;
-
-
-/*
-|--------------------------------------------------------------------------
-| URI
-|--------------------------------------------------------------------------
-*/
-
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
-
-
-/*
-|--------------------------------------------------------------------------
-| Character Set
-|--------------------------------------------------------------------------
-*/
-
-$config['charset'] = 'UTF-8';
-
-
-/*
-|--------------------------------------------------------------------------
-| Error View
-|--------------------------------------------------------------------------
-*/
-
-$config['error_view_path'] = '';
-
-$config['404_override'] = '';
-
-
-/*
-|--------------------------------------------------------------------------
-| Language
-|--------------------------------------------------------------------------
-*/
-
-$config['language'] = 'en-US';
-
-
-/*
-|--------------------------------------------------------------------------
-| Subclass Prefix
-|--------------------------------------------------------------------------
-*/
-
-$config['subclass_prefix'] = 'MY_';
+$config['session_hmac_secret'] = getenv('SESSION_HMAC_SECRET') ?: 'LavaLust-Session-Secret-2026-Erin-9xK7mP4qZ8vN2sR6';
+$config['sess_match_fingerprint'] = true;
+$config['sess_match_ip'] = false;
+ 
+ 
+/* 
+|-------------------------------------------------------------------------- 
+| Base URL 
+|-------------------------------------------------------------------------- 
+| 
+| Detect HTTPS correctly when running behind a proxy such as Render. 
+| 
+*/ 
+ 
+$forwardedProto = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? ''; 
+ 
+if ($forwardedProto === 'https') { 
+    $requestScheme = 'https'; 
+} elseif (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') { 
+    $requestScheme = 'https'; 
+} else { 
+    $requestScheme = 'http'; 
+} 
+ 
+$requestHost = $_SERVER['HTTP_HOST'] ?? 'localhost'; 
+ 
+$scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''); 
+ 
+$projectPath = preg_replace( 
+    '#/(?:public/)?index\.php$#', 
+    '', 
+    $scriptName 
+); 
+ 
+$config['base_url'] = $requestScheme . '://' . $requestHost . rtrim($projectPath, '/'); 
