@@ -107,7 +107,7 @@ $config['session_hmac_secret'] = getenv('APP_KEY') ?: '';
 $config['cookie_prefix'] = '';
 $config['cookie_domain'] = '';
 $config['cookie_path'] = '/';
-$config['cookie_secure'] = FALSE;
+$config['cookie_secure'] = (getenv('APP_ENV') ?: 'development') === 'production';
 $config['cookie_expiration'] = 86400;
 $config['cookie_httponly'] = FALSE;
 $config['cookie_samesite'] = 'Strict';
@@ -157,7 +157,7 @@ $config['updated_at_column'] = 'updated_at';
 |------------------------------------------------------------------
 */
 
-$config['csrf_protection'] = FALSE;
+$config['csrf_protection'] = TRUE;
 $config['csrf_exclude_uris'] = array();
 $config['csrf_token_name'] = 'csrf_test_name';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
